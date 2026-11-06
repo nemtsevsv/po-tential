@@ -76,10 +76,14 @@ alter table public.countries enable row level security;
 alter table public.hs_codes enable row level security;
 alter table public.trade_data enable row level security;
 
+drop policy if exists "authenticated_read" on public.country_master;
 create policy "authenticated_read" on public.country_master for select to authenticated using (true);
 
+drop policy if exists "authenticated_all" on public.countries;
 create policy "authenticated_all" on public.countries for all to authenticated using (true) with check (true);
+drop policy if exists "authenticated_all" on public.hs_codes;
 create policy "authenticated_all" on public.hs_codes for all to authenticated using (true) with check (true);
+drop policy if exists "authenticated_all" on public.trade_data;
 create policy "authenticated_all" on public.trade_data for all to authenticated using (true) with check (true);
 
 -- No table access for anonymous visitors.
